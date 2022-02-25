@@ -1,0 +1,18 @@
+[
+  {
+    "organiser": "Libreria Palazzo Roberti",
+    "title": "Serate a tema",
+    "description": "Incontri di cultura",
+    "long": 15,
+    "lat": 45,
+    "type": "A"
+  },
+  {
+    "organiser": "Autostatizione Cittadella",
+    "title": "Serata sushi",
+    "description": "Degustazione sushi fatto bene",
+    "long": 15.1,
+    "lat": 45.01,
+    "type": "B"
+  }
+]
