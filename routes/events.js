@@ -22,4 +22,24 @@ router.get('/', async (req, res) => {
   }
 });
 
+// get events "type A"
+router.get('/typea', async (req, res) => {
+  try {
+    const eventsTypeA = await Event.find({ type: 'A' });
+    res.status(200).json(eventsTypeA);
+  } catch (err) {
+    res.status(500).json(err);
+  }
+});
+
+// get events "type B"
+router.get('/typeb', async (req, res) => {
+  try {
+    const eventsTypeB = await Event.find({ type: 'B' });
+    res.status(200).json(eventsTypeB);
+  } catch (err) {
+    res.status(500).json(err);
+  }
+});
+
 module.exports = router;
