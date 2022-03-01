@@ -14,5 +14,21 @@
     "long": 15.1,
     "lat": 45.01,
     "type": "B"
+  },
+  {
+    "organiser": "Teatro XXX",
+    "title": "Serata XXX",
+    "description": "Esposizione XXX",
+    "long": 14.5,
+    "lat": 45.01,
+    "type": "A"
+  },
+  {
+    "organiser": "Ristorante XXX",
+    "title": "Serata XXX",
+    "description": "Degustazione XXX fatto bene",
+    "long": 14.6,
+    "lat": 45.51,
+    "type": "B"
   }
 ]
