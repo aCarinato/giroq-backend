@@ -5,7 +5,8 @@
     "description": "Incontri di cultura",
     "long": 15,
     "lat": 45,
-    "type": "A"
+    "type": "A",
+    "date": "2022-03-05"
   },
   {
     "organiser": "Autostatizione Cittadella",
@@ -13,7 +14,8 @@
     "description": "Degustazione sushi fatto bene",
     "long": 15.1,
     "lat": 45.01,
-    "type": "B"
+    "type": "B",
+    "date": "2022-03-06"
   },
   {
     "organiser": "Teatro XXX",
@@ -21,7 +23,8 @@
     "description": "Esposizione XXX",
     "long": 14.5,
     "lat": 45.01,
-    "type": "A"
+    "type": "A",
+    "date": "2022-03-07"
   },
   {
     "organiser": "Ristorante XXX",
@@ -29,6 +32,7 @@
     "description": "Degustazione XXX fatto bene",
     "long": 14.6,
     "lat": 45.51,
-    "type": "B"
+    "type": "B",
+    "date": "2022-03-08"
   }
 ]

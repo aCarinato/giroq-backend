@@ -3,10 +3,30 @@ const Event = require('../models/Event');
 
 //create an event
 router.post('/', async (req, res) => {
+  // const reqObj = req.body;
+  // const test = { ...reqObj, date: new Date('2000-01-01') };
   const newEvent = new Event(req.body);
   try {
     const savedEvent = await newEvent.save();
     res.status(200).json(savedEvent);
+  } catch (err) {
+    res.status(500).json(err);
+  }
+});
+
+// get events for a certain date
+router.get('/date', async (req, res) => {
+  try {
+    const today = new Date();
+    const tomorrow = new Date();
+
+    today.setDate(today.getDate() - 1);
+    tomorrow.setDate(today.getDate() + 1);
+
+    const events = await Event.find({
+      date: { $gte: today, $lt: tomorrow },
+    });
+    res.status(200).json(events);
   } catch (err) {
     res.status(500).json(err);
   }
