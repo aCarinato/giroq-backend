@@ -14,28 +14,28 @@ router.post('/', async (req, res) => {
   }
 });
 
-// get events for a certain date
-router.get('/date', async (req, res) => {
+//get all events
+router.get('/', async (req, res) => {
   try {
-    const today = new Date();
-    const tomorrow = new Date();
-
-    today.setDate(today.getDate() - 1);
-    tomorrow.setDate(today.getDate() + 1);
-
-    const events = await Event.find({
-      date: { $gte: today, $lt: tomorrow },
-    });
+    const events = await Event.find();
     res.status(200).json(events);
   } catch (err) {
     res.status(500).json(err);
   }
 });
 
-//get all events
-router.get('/', async (req, res) => {
+// get events for a certain date
+router.get('/:date', async (req, res) => {
   try {
-    const events = await Event.find();
+    const { date } = req.params;
+
+    const formattedDate = new Date(date);
+    const dayBefore = formattedDate.setDate(formattedDate.getDate() - 1);
+    const dayAfter = formattedDate.setDate(formattedDate.getDate() + 1);
+
+    const events = await Event.find({
+      date: { $gt: dayBefore, $lte: dayAfter },
+    });
     res.status(200).json(events);
   } catch (err) {
     res.status(500).json(err);
@@ -53,7 +53,7 @@ router.get('/', async (req, res) => {
 // });
 
 // get event wth id
-router.get('/:_id', async (req, res) => {
+router.get('/event/:_id', async (req, res) => {
   try {
     const event = await Event.findById(req.params._id);
     res.status(200).json(event);
