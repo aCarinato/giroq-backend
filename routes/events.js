@@ -3,8 +3,7 @@ const Event = require('../models/Event');
 
 //create an event
 router.post('/', async (req, res) => {
-  // const reqObj = req.body;
-  // const test = { ...reqObj, date: new Date('2000-01-01') };
+  // console.log(req.body);
   const newEvent = new Event(req.body);
   try {
     const savedEvent = await newEvent.save();
