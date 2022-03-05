@@ -25,16 +25,42 @@ router.get('/', async (req, res) => {
 });
 
 // get events for a certain date
-router.get('/:date', async (req, res) => {
+// router.get('/:date', async (req, res) => {
+//   try {
+//     const { date } = req.params;
+
+//     const formattedDate = new Date(date);
+//     const dayBefore = formattedDate.setDate(formattedDate.getDate() - 1);
+//     const dayAfter = formattedDate.setDate(formattedDate.getDate() + 1);
+
+//     const events = await Event.find({
+//       date: { $gt: dayBefore, $lte: dayAfter },
+//     });
+//     res.status(200).json(events);
+//   } catch (err) {
+//     res.status(500).json(err);
+//   }
+// });
+router.get('/:firstdate/:lastdate', async (req, res) => {
   try {
-    const { date } = req.params;
+    const { firstdate, lastdate } = req.params;
+    // console.log(`Dall API, firstdate: ${firstdate}`);
+    // console.log(`Dall API, lastdate: ${lastdate}`);
+    const formattedFirstDate = new Date(firstdate);
+    const formattedLastDate = new Date(lastdate);
 
-    const formattedDate = new Date(date);
-    const dayBefore = formattedDate.setDate(formattedDate.getDate() - 1);
-    const dayAfter = formattedDate.setDate(formattedDate.getDate() + 1);
+    const dayBeforeFirstDate = formattedFirstDate.setDate(
+      formattedFirstDate.getDate() - 1
+    );
 
+    const dayAfterLastDate = formattedLastDate.setDate(
+      formattedLastDate.getDate() + 1
+    );
+
+    // console.log(`Dall API, dayBeforeFirstDate: ${dayBeforeFirstDate}`);
+    // console.log(`Dall API, dayAfterLastDate: ${dayAfterLastDate}`);
     const events = await Event.find({
-      date: { $gt: dayBefore, $lte: dayAfter },
+      date: { $gt: dayBeforeFirstDate, $lt: dayAfterLastDate },
     });
     res.status(200).json(events);
   } catch (err) {
@@ -53,13 +79,13 @@ router.get('/:date', async (req, res) => {
 // });
 
 // get event wth id
-router.get('/event/:_id', async (req, res) => {
-  try {
-    const event = await Event.findById(req.params._id);
-    res.status(200).json(event);
-  } catch (err) {
-    res.status(500).json(err);
-  }
-});
+// router.get('/event/:_id', async (req, res) => {
+//   try {
+//     const event = await Event.findById(req.params._id);
+//     res.status(200).json(event);
+//   } catch (err) {
+//     res.status(500).json(err);
+//   }
+// });
 
 module.exports = router;
