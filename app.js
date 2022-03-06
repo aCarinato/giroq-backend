@@ -8,6 +8,7 @@ const dotenv = require('dotenv');
 
 const eventsRoutes = require('./routes/events');
 const eventRoutes = require('./routes/event');
+const authRoutes = require('./routes/auth');
 // const placesRoutes = require('./routes/places-routes');
 // const usersRoutes = require('./routes/users-routes');
 // const HttpError = require('./models/http-error');
@@ -37,6 +38,7 @@ app.use((req, res, next) => {
 
 app.use('/api/events', eventsRoutes);
 app.use('/api/event', eventRoutes);
+app.use('/api/auth', authRoutes);
 
 // app.use('/api/places', placesRoutes);
 // app.use('/api/users', usersRoutes);
