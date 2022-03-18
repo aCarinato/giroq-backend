@@ -15,4 +15,12 @@ router.post('/', async (req, res) => {
   }
 });
 
+// router.post('/organiser', async (req, res) => {
+//   try {
+//     const {  } = req.body
+//   } catch (err) {
+//     res.status(500).json(err);
+//   }
+// });
+
 module.exports = router;
