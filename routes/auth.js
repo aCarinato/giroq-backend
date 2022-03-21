@@ -1,4 +1,5 @@
 const router = require('express').Router();
+const Organiser = require('../models/Organiser');
 
 router.post('/', async (req, res) => {
   try {
@@ -15,12 +16,23 @@ router.post('/', async (req, res) => {
   }
 });
 
-// router.post('/organiser', async (req, res) => {
-//   try {
-//     const {  } = req.body
-//   } catch (err) {
-//     res.status(500).json(err);
-//   }
-// });
+router.get('/organiser', async (req, res) => {
+  try {
+    const organisers = await Organiser.find();
+    res.status(200).json(organisers);
+  } catch (err) {
+    res.status(500).json(err);
+  }
+});
+
+router.post('/organiser', async (req, res) => {
+  const newOrganiser = new Organiser(req.body);
+  try {
+    const savedOrganiser = await newOrganiser.save();
+    res.status(200).json(savedOrganiser);
+  } catch (err) {
+    res.status(500).json(err);
+  }
+});
 
 module.exports = router;

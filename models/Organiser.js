@@ -19,4 +19,4 @@ const organiserSchema = new mongoose.Schema({
   },
 });
 
-module.exports = mongoose.model('Event', organiserSchema);
+module.exports = mongoose.model('Organiser', organiserSchema);
