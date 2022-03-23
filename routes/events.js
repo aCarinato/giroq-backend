@@ -1,15 +1,9 @@
 const router = require('express').Router();
-const Event = require('../models/Event');
+
+const { getEvents, getEventsDateRange } = require('../controllers/events');
 
 //get all events
-router.get('/', async (req, res) => {
-  try {
-    const events = await Event.find();
-    res.status(200).json(events);
-  } catch (err) {
-    res.status(500).json(err);
-  }
-});
+router.get('/', getEvents);
 
 // get events for a certain date
 // router.get('/:date', async (req, res) => {
@@ -28,32 +22,7 @@ router.get('/', async (req, res) => {
 //     res.status(500).json(err);
 //   }
 // });
-router.get('/:firstdate/:lastdate', async (req, res) => {
-  try {
-    const { firstdate, lastdate } = req.params;
-    // console.log(`Dall API, firstdate: ${firstdate}`);
-    // console.log(`Dall API, lastdate: ${lastdate}`);
-    const formattedFirstDate = new Date(firstdate);
-    const formattedLastDate = new Date(lastdate);
-
-    const dayBeforeFirstDate = formattedFirstDate.setDate(
-      formattedFirstDate.getDate() - 1
-    );
-
-    const dayAfterLastDate = formattedLastDate.setDate(
-      formattedLastDate.getDate() + 1
-    );
-
-    // console.log(`Dall API, dayBeforeFirstDate: ${dayBeforeFirstDate}`);
-    // console.log(`Dall API, dayAfterLastDate: ${dayAfterLastDate}`);
-    const events = await Event.find({
-      date: { $gt: dayBeforeFirstDate, $lt: dayAfterLastDate },
-    });
-    res.status(200).json(events);
-  } catch (err) {
-    res.status(500).json(err);
-  }
-});
+router.get('/:firstdate/:lastdate', getEventsDateRange);
 
 // get events "type A"
 // router.get('/typea', async (req, res) => {

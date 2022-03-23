@@ -1,22 +1,24 @@
-const express = require('express');
-const mongoose = require('mongoose');
-
-const dotenv = require('dotenv');
+// const express = require('express');
+// const mongoose = require('mongoose');
+import express from 'express';
+import mongoose from 'mongoose';
+import 'dotenv/config';
+// const dotenv = require('dotenv');
 // const formidableMiddleware = require('express-formidable');
 
 // import event from './routes/event'
-// import eventRoutes from './routes/eventRoutes.js';
-// import eventsRoutes from './routes/eventsRoutes';
-// import authRoutes from './routes/authRoutes';
+import eventRoutes from './routes/eventRoutes.js';
+import eventsRoutes from './routes/eventsRoutes';
+import authRoutes from './routes/authRoutes';
 
-const eventsRoutes = require('./routes/events');
-const eventRoutes = require('./routes/event');
-const authRoutes = require('./routes/auth');
+// const eventsRoutes = require('./routes/events');
+// const eventRoutes = require('./routes/event.js');
+// const authRoutes = require('./routes/auth');
 
 const app = express();
 
 // To set env variables
-dotenv.config();
+// dotenv.config();
 
 const port = process.env.PORT || 8000;
 const db_url = process.env.DB_URL;

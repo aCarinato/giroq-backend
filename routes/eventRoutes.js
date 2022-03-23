@@ -1,12 +1,10 @@
-const router = require('express').Router();
-
-// const formidableMiddleware = require('express-formidable');
-
+import Event from '../models/Event';
+import express from 'express';
 // import formidable from "express-formidable";
 
-// import { createEvent } from '../controllers/event.js';
+const router = express.Router();
 
-const { createEvent, getEvent } = require('../controllers/event');
+import { createEvent } from '../controllers/event.js';
 
 // const cloudinary = require('cloudinary').v2;
 
@@ -42,6 +40,14 @@ router.post('/img-upload', async (req, res) => {
 });
 
 // get event wth id
-router.get('/:_id', getEvent);
+router.get('/:_id', async (req, res) => {
+  try {
+    const event = await Event.findById(req.params._id);
+    res.status(200).json(event);
+  } catch (err) {
+    res.status(500).json(err);
+  }
+});
 
-module.exports = router;
+export default router;
+// module.exports = router;
