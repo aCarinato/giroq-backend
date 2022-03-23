@@ -1,5 +1,4 @@
 const router = require('express').Router();
-const Organiser = require('../models/Organiser');
 
 const {
   login,
