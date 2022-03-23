@@ -1,5 +1,5 @@
 const express = require('express');
-const bodyParser = require('body-parser');
+// const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 const dotenv = require('dotenv');
 // const formidableMiddleware = require('express-formidable');
@@ -16,8 +16,9 @@ dotenv.config();
 const port = process.env.PORT || 8000;
 const db_url = process.env.DB_URL;
 
-app.use(bodyParser.json());
+// app.use(bodyParser.json());
 // app.use(formidableMiddleware());
+app.use(express.json());
 
 // app.use('/uploads/images', express.static(path.join('uploads', 'images')));
 
