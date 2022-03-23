@@ -28,6 +28,10 @@ const eventSchema = new mongoose.Schema({
   date: {
     type: Date,
   },
+  image: {
+    url: String,
+    public_id: String,
+  },
 });
 
 module.exports = mongoose.model('Event', eventSchema);

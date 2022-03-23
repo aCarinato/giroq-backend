@@ -1,17 +1,12 @@
-// const fs = require('fs');
-// const path = require('path');
-
 const express = require('express');
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 const dotenv = require('dotenv');
+// const formidableMiddleware = require('express-formidable');
 
 const eventsRoutes = require('./routes/events');
 const eventRoutes = require('./routes/event');
 const authRoutes = require('./routes/auth');
-// const placesRoutes = require('./routes/places-routes');
-// const usersRoutes = require('./routes/users-routes');
-// const HttpError = require('./models/http-error');
 
 const app = express();
 
@@ -22,6 +17,7 @@ const port = process.env.PORT || 8000;
 const db_url = process.env.DB_URL;
 
 app.use(bodyParser.json());
+// app.use(formidableMiddleware());
 
 // app.use('/uploads/images', express.static(path.join('uploads', 'images')));
 
