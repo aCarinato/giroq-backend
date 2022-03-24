@@ -1,6 +1,7 @@
-const Organiser = require('../models/Organiser');
+// const Organiser = require('../models/Organiser');
+import Organiser from '../models/Organiser.js';
 
-exports.login = async (req, res) => {
+export const login = async (req, res) => {
   try {
     const { password } = req.body;
     console.log(`From the API, password:  ${password}`);
@@ -15,7 +16,7 @@ exports.login = async (req, res) => {
   }
 };
 
-exports.getOrganisers = async (req, res) => {
+export const getOrganisers = async (req, res) => {
   try {
     const organisers = await Organiser.find();
     res.status(200).json(organisers);
@@ -24,7 +25,7 @@ exports.getOrganisers = async (req, res) => {
   }
 };
 
-exports.addNewOrganiser = async (req, res) => {
+export const addNewOrganiser = async (req, res) => {
   const newOrganiser = new Organiser(req.body);
   try {
     const savedOrganiser = await newOrganiser.save();
