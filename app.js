@@ -1,6 +1,7 @@
 import express from 'express';
 import mongoose from 'mongoose';
-import dotenv from 'dotenv';
+// import dotenv from 'dotenv';
+import 'dotenv/config';
 
 // const formidableMiddleware = require('express-formidable');
 
@@ -16,7 +17,7 @@ import authRoutes from './routes/authRoutes.js';
 const app = express();
 
 // To set env variables
-dotenv.config();
+// dotenv.config();
 
 const port = process.env.PORT || 8000;
 const db_url = process.env.DB_URL;
