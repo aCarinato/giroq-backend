@@ -1,17 +1,17 @@
-const express = require('express');
-const mongoose = require('mongoose');
+import express from 'express';
+import mongoose from 'mongoose';
+import dotenv from 'dotenv';
 
-const dotenv = require('dotenv');
 // const formidableMiddleware = require('express-formidable');
 
 // import event from './routes/event'
-// import eventRoutes from './routes/eventRoutes.js';
-// import eventsRoutes from './routes/eventsRoutes';
-// import authRoutes from './routes/authRoutes';
+import eventRoutes from './routes/eventRoutes.js';
+import eventsRoutes from './routes/eventsRoutes.js';
+import authRoutes from './routes/authRoutes.js';
 
-const eventsRoutes = require('./routes/events');
-const eventRoutes = require('./routes/event');
-const authRoutes = require('./routes/auth');
+// const eventsRoutes = require('./routes/events');
+// const eventRoutes = require('./routes/event.js');
+// const authRoutes = require('./routes/auth');
 
 const app = express();
 
@@ -44,24 +44,6 @@ app.use('/api/auth', authRoutes);
 
 // app.use('/api/places', placesRoutes);
 // app.use('/api/users', usersRoutes);
-
-// app.use((req, res, next) => {
-//   const error = new HttpError('Could not find this route.', 404);
-//   throw error;
-// });
-
-// app.use((error, req, res, next) => {
-//   if (req.file) {
-//     fs.unlink(req.file.path, (err) => {
-//       console.log(err);
-//     });
-//   }
-//   if (res.headerSent) {
-//     return next(error);
-//   }
-//   res.status(error.code || 500);
-//   res.json({ message: error.message || 'An unknown error occurred!' });
-// });
 
 // CONNECT DB
 mongoose

@@ -1,6 +1,7 @@
-const Event = require('../models/Event');
+// const Event = require('../models/Event');
+import Event from '../models/Event.js';
 
-exports.getEvents = async (req, res) => {
+export const getEvents = async (req, res) => {
   try {
     const events = await Event.find();
     res.status(200).json(events);
@@ -9,7 +10,7 @@ exports.getEvents = async (req, res) => {
   }
 };
 
-exports.getEventsDateRange = async (req, res) => {
+export const getEventsDateRange = async (req, res) => {
   try {
     const { firstdate, lastdate } = req.params;
     // console.log(`Dall API, firstdate: ${firstdate}`);
