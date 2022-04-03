@@ -8,6 +8,9 @@ import { getEvents, getEventsDateRange } from '../controllers/events.js';
 //get all events
 router.get('/', getEvents);
 
-router.get('/:firstdate/:lastdate', getEventsDateRange);
+router.get(
+  '/:firstdate/:lastdate/:blLat/:trLat/:blLong/:trLong',
+  getEventsDateRange
+);
 
 export default router;
