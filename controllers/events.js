@@ -24,15 +24,12 @@ export const getEvents = async (req, res) => {
 export const getEventsDateRange = async (req, res) => {
   try {
     const { firstdate, lastdate, blLat, trLat, blLong, trLong } = req.params;
-    // console.log(req.params);
-    console.log(`Dall API, blLat: ${blLat}`);
-    console.log(`Dall API, blLong: ${blLong}`);
-    console.log(`Dall API, trLat: ${trLat}`);
-    console.log(`Dall API, trLong: ${trLong}`);
-    // const bl_lat = sw.lat;
-    // const tr_lat = ne.lat;
-    // const bl_long = sw.lng;
-    // const tr_long = ne.lng;
+    // console.log('----------------');
+    // console.log('');
+    // console.log(`Dall API, blLat: ${blLat}`);
+    // console.log(`Dall API, blLong: ${blLong}`);
+    // console.log(`Dall API, trLat: ${trLat}`);
+    // console.log(`Dall API, trLong: ${trLong}`);
 
     // console.log(`Dall API, firstdate: ${firstdate}`);
     // console.log(`Dall API, lastdate: ${lastdate}`);
