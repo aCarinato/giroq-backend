@@ -24,7 +24,7 @@ export const postEvents = async (req, res) => {
       long: { $gt: blLong, $lt: trLong },
       type: { $in: types },
     });
-    console.log(events);
+    // console.log(events);
     res.status(200).json(events);
   } catch (err) {
     res.status(500).json(err);
