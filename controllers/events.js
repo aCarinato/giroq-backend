@@ -1,20 +1,40 @@
 // const Event = require('../models/Event');
 import Event from '../models/Event.js';
 
+export const postEvents = async (req, res) => {
+  try {
+    const { firstDate, lastDate, trLat, trLong, blLat, blLong, types } =
+      req.body;
+    // console.log(firstDate);
+
+    const formattedFirstDate = new Date(firstDate);
+    const formattedLastDate = new Date(lastDate);
+
+    const dayBeforeFirstDate = formattedFirstDate.setDate(
+      formattedFirstDate.getDate() - 1
+    );
+
+    const dayAfterLastDate = formattedLastDate.setDate(
+      formattedLastDate.getDate() + 1
+    );
+
+    const events = await Event.find({
+      date: { $gt: dayBeforeFirstDate, $lt: dayAfterLastDate },
+      lat: { $gt: blLat, $lt: trLat },
+      long: { $gt: blLong, $lt: trLong },
+      type: { $in: types },
+    });
+    console.log(events);
+    res.status(200).json(events);
+  } catch (err) {
+    res.status(500).json(err);
+  }
+};
+
 export const getEvents = async (req, res) => {
   try {
-    const { ne, sw } = req.params;
-    // bl -> bottom-left
-    // tr -> top-right
-    const bl_lat = sw.lat;
-    const tr_lat = ne.lat;
-    const bl_long = sw.lng;
-    const tr_long = ne.lng;
-    // const events = await Event.find();
-    const events = await Event.find({
-      lat: { $gt: bl_lat, $lt: tr_lat },
-      long: { $gt: bl_long, $lt: tr_long },
-    });
+    console.log('te sento sii');
+    const events = await Event.find();
     res.status(200).json(events);
   } catch (err) {
     res.status(500).json(err);
