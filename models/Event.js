@@ -1,5 +1,3 @@
-// const mongoose = require('mongoose');
-
 import mongoose from 'mongoose';
 
 const eventSchema = new mongoose.Schema({
@@ -23,8 +21,8 @@ const eventSchema = new mongoose.Schema({
     type: Number,
     required: true,
   },
-  type: {
-    type: Number,
+  category: {
+    type: [Number],
     required: true,
   },
   date: {
