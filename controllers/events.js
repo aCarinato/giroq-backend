@@ -22,7 +22,7 @@ export const postEvents = async (req, res) => {
       date: { $gt: dayBeforeFirstDate, $lt: dayAfterLastDate },
       lat: { $gt: blLat, $lt: trLat },
       long: { $gt: blLong, $lt: trLong },
-      type: { $in: types },
+      category: { $in: types },
     });
     // console.log(events);
     res.status(200).json(events);
