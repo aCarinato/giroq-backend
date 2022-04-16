@@ -1,4 +1,3 @@
-// import Event from '../models/Event';
 import express from 'express';
 
 const router = express.Router();
@@ -15,7 +14,8 @@ router.get('/', getEvents);
 router.post('/', postEvents);
 
 router.get(
-  '/:firstdate/:lastdate/:blLat/:trLat/:blLong/:trLong',
+  // '/:firstdate/:lastdate/:blLat/:trLat/:blLong/:trLong',
+  '/:firstDate/:lastDate/:trLat/:trLong/:blLat/:blLong',
   getEventsDateRange
 );
 

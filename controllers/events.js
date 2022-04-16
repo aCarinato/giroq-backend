@@ -33,7 +33,6 @@ export const postEvents = async (req, res) => {
 
 export const getEvents = async (req, res) => {
   try {
-    console.log('te sento sii');
     const events = await Event.find();
     res.status(200).json(events);
   } catch (err) {
@@ -43,7 +42,8 @@ export const getEvents = async (req, res) => {
 
 export const getEventsDateRange = async (req, res) => {
   try {
-    const { firstdate, lastdate, blLat, trLat, blLong, trLong } = req.params;
+    // const { firstdate, lastdate, blLat, trLat, blLong, trLong } = req.params;
+    const { firstDate, lastDate, trLat, trLong, blLat, blLong } = req.params;
     // console.log('----------------');
     // console.log('');
     // console.log(`Dall API, blLat: ${blLat}`);
@@ -53,8 +53,8 @@ export const getEventsDateRange = async (req, res) => {
 
     // console.log(`Dall API, firstdate: ${firstdate}`);
     // console.log(`Dall API, lastdate: ${lastdate}`);
-    const formattedFirstDate = new Date(firstdate);
-    const formattedLastDate = new Date(lastdate);
+    const formattedFirstDate = new Date(firstDate);
+    const formattedLastDate = new Date(lastDate);
 
     const dayBeforeFirstDate = formattedFirstDate.setDate(
       formattedFirstDate.getDate() - 1
