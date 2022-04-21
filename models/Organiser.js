@@ -6,9 +6,12 @@ const organiserSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
-  address: {
+  street: {
     type: String,
     required: true,
+  },
+  city: {
+    type: String,
   },
   long: {
     type: Number,

@@ -5,7 +5,7 @@ export const postEvents = async (req, res) => {
   try {
     const { firstDate, lastDate, trLat, trLong, blLat, blLong, types } =
       req.body;
-    // console.log(firstDate);
+    // console.log(req.body);
 
     const formattedFirstDate = new Date(firstDate);
     const formattedLastDate = new Date(lastDate);

@@ -13,6 +13,13 @@ const eventSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
+  street: {
+    type: String,
+    required: true,
+  },
+  city: {
+    type: String,
+  },
   long: {
     type: Number,
     required: true,
@@ -27,6 +34,12 @@ const eventSchema = new mongoose.Schema({
   },
   date: {
     type: Date,
+  },
+  startTime: {
+    type: String,
+  },
+  endTime: {
+    type: String,
   },
   image: {
     url: String,
