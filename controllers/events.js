@@ -19,7 +19,26 @@ export const postEvents = async (req, res) => {
     );
 
     const events = await Event.find({
-      date: { $gt: dayBeforeFirstDate, $lt: dayAfterLastDate },
+      $or: [
+        {
+          $and: [
+            { startDate: { $gt: dayBeforeFirstDate } },
+            { startDate: { $lt: dayAfterLastDate } },
+          ],
+        },
+        {
+          $and: [
+            { endDate: { $gt: dayBeforeFirstDate } },
+            { endDate: { $lt: dayAfterLastDate } },
+          ],
+        },
+        {
+          $and: [
+            { startDate: { $lt: dayBeforeFirstDate } },
+            { endDate: { $gt: dayBeforeFirstDate } },
+          ],
+        },
+      ],
       lat: { $gt: blLat, $lt: trLat },
       long: { $gt: blLong, $lt: trLong },
       category: { $in: types },

@@ -1,4 +1,3 @@
-// const Event = require('../models/Event');
 import Event from '../models/Event.js';
 import cloudinary from 'cloudinary';
 
@@ -12,7 +11,6 @@ export const uploadImage = async (req, res) => {
   console.log('req files => ', req.files);
   try {
     const result = await cloudinary.uploader.upload(req.files.image.path);
-    // console.log('from API, uploaded image url => ', result);
     res.json({
       url: result.secure_url,
       public_id: result.public_id,

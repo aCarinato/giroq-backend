@@ -32,7 +32,11 @@ const eventSchema = new mongoose.Schema({
     type: [Number],
     required: true,
   },
-  date: {
+  startDate: {
+    required: true,
+    type: Date,
+  },
+  endDate: {
     type: Date,
   },
   startTime: {
@@ -44,6 +48,9 @@ const eventSchema = new mongoose.Schema({
   image: {
     url: String,
     public_id: String,
+  },
+  link: {
+    type: String,
   },
 });
 
