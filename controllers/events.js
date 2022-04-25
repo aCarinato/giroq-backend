@@ -1,10 +1,58 @@
 // const Event = require('../models/Event');
 import Event from '../models/Event.js';
 
+// export const postEvents = async (req, res) => {
+//   try {
+//     const { firstDate, lastDate, trLat, trLong, blLat, blLong, types } =
+//       req.body;
+//     // console.log(req.body);
+
+//     const formattedFirstDate = new Date(firstDate);
+//     const formattedLastDate = new Date(lastDate);
+
+//     const dayBeforeFirstDate = formattedFirstDate.setDate(
+//       formattedFirstDate.getDate() - 1
+//     );
+
+//     const dayAfterLastDate = formattedLastDate.setDate(
+//       formattedLastDate.getDate() + 1
+//     );
+
+//     const events = await Event.find({
+//       $or: [
+//         {
+//           $and: [
+//             { startDate: { $gt: dayBeforeFirstDate } },
+//             { startDate: { $lt: dayAfterLastDate } },
+//           ],
+//         },
+//         {
+//           $and: [
+//             { endDate: { $gt: dayBeforeFirstDate } },
+//             { endDate: { $lt: dayAfterLastDate } },
+//           ],
+//         },
+//         {
+//           $and: [
+//             { startDate: { $lt: dayBeforeFirstDate } },
+//             { endDate: { $gt: dayBeforeFirstDate } },
+//           ],
+//         },
+//       ],
+//       lat: { $gt: blLat, $lt: trLat },
+//       long: { $gt: blLong, $lt: trLong },
+//       category: { $in: types },
+//     });
+//     // console.log(events);
+//     res.status(200).json(events);
+//   } catch (err) {
+//     res.status(500).json(err);
+//   }
+// };
+
 export const postEvents = async (req, res) => {
   try {
-    const { firstDate, lastDate, trLat, trLong, blLat, blLong, types } =
-      req.body;
+    const { firstDate, lastDate, tlLng, brLat, brLng, tlLat, types } = req.body;
     // console.log(req.body);
 
     const formattedFirstDate = new Date(firstDate);
@@ -39,8 +87,8 @@ export const postEvents = async (req, res) => {
           ],
         },
       ],
-      lat: { $gt: blLat, $lt: trLat },
-      long: { $gt: blLong, $lt: trLong },
+      lat: { $gt: brLat, $lt: tlLat },
+      long: { $gt: tlLng, $lt: brLng },
       category: { $in: types },
     });
     // console.log(events);
