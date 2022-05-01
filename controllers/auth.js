@@ -4,8 +4,8 @@ import Organiser from '../models/Organiser.js';
 export const login = async (req, res) => {
   try {
     const { password } = req.body;
-    console.log(`From the API, password:  ${password}`);
-    if (password !== 'cheben') {
+    // console.log(`From the API, password:  ${password}`);
+    if (password !== process.env.ADMIN_PSW) {
       return res.json('Wrong password');
     }
 
