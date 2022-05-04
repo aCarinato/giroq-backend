@@ -39,3 +39,18 @@ export const getEvent = async (req, res) => {
     res.status(500).json(err);
   }
 };
+
+export const deleteEvent = async (req, res) => {
+  try {
+    const event = await Event.findByIdAndDelete(req.params._id);
+    // console.log(req.params._id);
+    // remove image from cloudinary
+    if (event.image && event.image.public_id) {
+      const image = await cloudinary.uploader.destroy(event.image.public_id);
+    }
+    res.json({ ok: true });
+  } catch (err) {
+    res.status(500).json(err);
+    console.log(err);
+  }
+};
