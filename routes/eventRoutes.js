@@ -5,7 +5,12 @@ import formidable from 'express-formidable';
 
 const router = express.Router();
 
-import { createEvent, getEvent, uploadImage } from '../controllers/event.js';
+import {
+  createEvent,
+  getEvent,
+  uploadImage,
+  deleteEvent,
+} from '../controllers/event.js';
 
 //create an event
 router.post('/', createEvent);
@@ -18,6 +23,8 @@ router.post(
   formidable({ maxFileSize: 5 * 1024 * 1024 }),
   uploadImage
 );
+
+router.delete('/delete-event/:_id', deleteEvent);
 
 export default router;
 // module.exports = router;
