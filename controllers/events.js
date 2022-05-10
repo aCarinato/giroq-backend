@@ -56,7 +56,10 @@ export const getEvents = async (req, res) => {
     const dayBeforeToday = today.setDate(today.getDate() - 1);
 
     const events = await Event.find({
-      startDate: { $gte: dayBeforeToday },
+      $or: [
+        { $and: [{ startDate: { $lte: dayBeforeToday } }, { endDate: null }] },
+        { endDate: { $lte: dayBeforeToday } },
+      ],
     });
     res.status(200).json(events);
   } catch (err) {
