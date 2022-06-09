@@ -26,6 +26,7 @@ export const getOrganisers = async (req, res) => {
 };
 
 export const addNewOrganiser = async (req, res) => {
+  console.log(req.body);
   const newOrganiser = new Organiser(req.body);
   try {
     const savedOrganiser = await newOrganiser.save();
