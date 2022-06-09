@@ -1,5 +1,6 @@
 import User from '../models/User.js';
 import bcrypt from 'bcryptjs';
+import jwt from 'jsonwebtoken';
 
 export const getUsers = async (req, res) => {
   let users;
@@ -10,39 +11,21 @@ export const getUsers = async (req, res) => {
   }
 };
 
-export const login = async (req, res) => {
-  const { email, password } = req.body;
-
-  //   console.log('FROM login');
-  //   console.log(req.body);
-
-  let existingUser;
-
-  try {
-    existingUser = await User.findOne({ email: email });
-    // console.log(existingUser);
-    res.status(200).json(existingUser);
-  } catch (err) {
-    res.status(500).json(err);
-  }
-};
-
 export const signup = async (req, res) => {
   const { username, email, password } = req.body;
 
-  //   console.log(req.body);
-
   let existingUser;
   try {
     existingUser = await User.findOne({ email: email });
-    res.status(200).json(existingUser);
+    // res.status(200).json(existingUser);
   } catch (err) {
     res.status(500).json(err);
   }
 
   if (existingUser) {
-    console.log('User already exists');
-    return;
+    return res.json({
+      error: 'Utente giá registrato con questa email',
+    });
   }
 
   let hashedPassword;
@@ -59,14 +42,67 @@ export const signup = async (req, res) => {
     preferences: [],
   });
 
-  console.log(createdUser);
-
   try {
     const newUser = await createdUser.save();
-    res.status(200).json(newUser);
+
+    let token;
+    token = jwt.sign(
+      { userId: newUser._id, email: newUser.email },
+      process.env.JWT_SECRET,
+      { expiresIn: '1h' }
+    );
+
+    res.status(201).json({
+      userId: newUser._id,
+      email: newUser.email,
+      token: token,
+    });
+  } catch (err) {
+    res.status(500).json(err);
+  }
+};
+
+export const login = async (req, res) => {
+  const { email, password } = req.body;
+
+  let existingUser;
+
+  try {
+    existingUser = await User.findOne({ email: email });
+    // res.status(200).json(existingUser);
   } catch (err) {
     res.status(500).json(err);
   }
 
-  //   res.status(201).json({ user: createdUser.toObject({ getters: true }) });
+  if (!existingUser) {
+    return res.json({
+      error: 'Utente non trovato. Controllare email.',
+    });
+  }
+
+  let isValidPassword;
+  try {
+    isValidPassword = await bcrypt.compare(password, existingUser.password);
+  } catch (err) {
+    res.status(500).json(err);
+  }
+
+  if (!isValidPassword) {
+    return res.json({
+      error: 'Password errata',
+    });
+  }
+
+  let token;
+  token = jwt.sign(
+    { userId: existingUser._id, email: existingUser.email },
+    process.env.JWT_SECRET,
+    { expiresIn: '1h' }
+  );
+
+  res.status(201).json({
+    userId: existingUser._id,
+    email: existingUser.email,
+    token: token,
+  });
 };
