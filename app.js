@@ -9,6 +9,7 @@ import 'dotenv/config';
 import eventRoutes from './routes/eventRoutes.js';
 import eventsRoutes from './routes/eventsRoutes.js';
 import authRoutes from './routes/authRoutes.js';
+import userRoutes from './routes/userRoutes.js';
 
 // const eventsRoutes = require('./routes/events');
 // const eventRoutes = require('./routes/event.js');
@@ -42,6 +43,7 @@ app.use((req, res, next) => {
 app.use('/api/events', eventsRoutes);
 app.use('/api/event', eventRoutes);
 app.use('/api/auth', authRoutes);
+app.use('/api/user', userRoutes);
 
 // app.use('/api/places', placesRoutes);
 // app.use('/api/users', usersRoutes);
