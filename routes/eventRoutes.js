@@ -12,6 +12,8 @@ import {
   deleteEvent,
 } from '../controllers/event.js';
 
+// import { requireSignin } from '../middlewares/check-auth';
+
 //create an event
 router.post('/', createEvent);
 

@@ -11,6 +11,16 @@ export const getUsers = async (req, res) => {
   }
 };
 
+export const getUser = async (req, res) => {
+  try {
+    const userEmail = req.body;
+    const user = await User.findOne({ email: userEmail });
+    res.status(200).json(user);
+  } catch (err) {
+    res.status(500).json(err);
+  }
+};
+
 export const signup = async (req, res) => {
   const { username, email, password } = req.body;
 
@@ -53,6 +63,7 @@ export const signup = async (req, res) => {
     );
 
     res.status(201).json({
+      username: newUser.username,
       userId: newUser._id,
       email: newUser.email,
       token: token,
@@ -101,6 +112,7 @@ export const login = async (req, res) => {
   );
 
   res.status(201).json({
+    username: existingUser.username,
     userId: existingUser._id,
     email: existingUser.email,
     token: token,
