@@ -113,7 +113,7 @@ export const getEvents = async (req, res) => {
           ],
         },
       ],
-    });
+    }).sort({ startDate: 1 });
     res.status(200).json(events);
   } catch (err) {
     res.status(500).json(err);
