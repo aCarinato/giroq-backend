@@ -2,7 +2,7 @@ import express from 'express';
 
 const router = express.Router();
 
-import { requireSignin } from '../middlewares/check-auth.js';
+import { userOnlyRoute } from '../middlewares/check-auth.js';
 
 import {
   getUsers,
@@ -14,8 +14,8 @@ import {
 
 router.get('/', getUsers);
 
-router.get('/current-user', requireSignin, currentUser);
-// router.get('/current-user', currentUser);
+// router.get('/current-user', requireSignin, currentUser);
+router.get('/current-user', userOnlyRoute, currentUser);
 
 router.get('/:username', getUser);
 

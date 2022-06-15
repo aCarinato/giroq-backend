@@ -6,15 +6,19 @@ export const getUsers = async (req, res) => {
   let users;
   try {
     users = await User.find({});
+    res.status(200).json(users);
   } catch (err) {
     res.status(500).json(err);
   }
 };
 
 export const getUser = async (req, res) => {
-  console.log('DAIIII');
+  // console.log('DAIIII');
   try {
-    console.log(req.params);
+    // console.log(req.params);
+    // const user = await User.findOne({ email: req.params.email }).select(
+    //   '-password'
+    // );
     const user = await User.findOne({ username: req.params.username }).select(
       '-password'
     );
@@ -27,7 +31,11 @@ export const getUser = async (req, res) => {
 
 export const currentUser = async (req, res) => {
   try {
-    const user = await User.findById(req.auth._id);
+    // IF YOU USE THE expressjwt middleware:
+    // const user = await User.findById(req.auth._id);
+
+    // IF YOU USE THE 'SELF-MADE' (userOnlyRoute) MIDDLEWARE:
+    const user = await User.findById(req.user._id);
     // res.json(user);
     res.json({ ok: true });
   } catch (err) {
