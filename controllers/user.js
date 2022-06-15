@@ -55,7 +55,7 @@ export const currentUser = async (req, res) => {
 // };
 
 export const signup = async (req, res) => {
-  const { username, email, password } = req.body;
+  const { username, email, password, preferences } = req.body;
 
   let existingUser;
   try {
@@ -82,7 +82,7 @@ export const signup = async (req, res) => {
     username,
     email,
     password: hashedPassword,
-    preferences: [],
+    preferences,
   });
 
   try {
