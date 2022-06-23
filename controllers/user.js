@@ -104,6 +104,7 @@ export const signup = async (req, res) => {
       username: newUser.username,
       userId: newUser._id,
       email: newUser.email,
+      preferences: newUser.preferences,
       token: token,
     });
   } catch (err) {
@@ -143,12 +144,6 @@ export const login = async (req, res) => {
   }
 
   let token;
-  // token = jwt.sign(
-  //   { userId: existingUser._id, email: existingUser.email },
-  //   process.env.JWT_SECRET,
-  //   { expiresIn: '1h' }
-  // );
-
   // ////////////////////////////////
   // MAX SIGNS THE TOKEN WITH _id AND EMAIL, KALORAAT ONLY WITH _id
   token = jwt.sign(
@@ -162,5 +157,56 @@ export const login = async (req, res) => {
     userId: existingUser._id,
     email: existingUser.email,
     token: token,
+    preferences: existingUser.preferences,
   });
+};
+
+export const profileUpdate = async (req, res) => {
+  try {
+    const { username, password, preferences } = req.body;
+
+    const data = {};
+
+    // console.log(req.body);
+    if (username !== '') {
+      data.username = username;
+    }
+
+    if (password !== '') {
+      if (password.length < 6) {
+        return res.json({
+          error: 'Password is required and should be min 6 characters long',
+        });
+      } else {
+        let hashedPassword;
+        hashedPassword = await bcrypt.hash(password, 12);
+        data.password = hashedPassword;
+        // data.password = await hashPassword(password);
+      }
+    }
+
+    data.preferences = preferences;
+
+    let user = await User.findByIdAndUpdate(req.user._id, data, { new: true });
+    // user.password = undefined;
+    // console.log(user);
+
+    let token;
+    // ////////////////////////////////
+    // MAX SIGNS THE TOKEN WITH _id AND EMAIL, KALORAAT ONLY WITH _id
+    token = jwt.sign(
+      { _id: user._id, email: user.email },
+      process.env.JWT_SECRET,
+      { expiresIn: '7d' }
+    );
+
+    res.json({
+      username: user.username,
+      email: user.email,
+      preferences: user.preferences,
+      token,
+    });
+  } catch (err) {
+    console.log(err);
+  }
 };

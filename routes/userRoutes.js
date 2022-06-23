@@ -10,6 +10,7 @@ import {
   currentUser,
   signup,
   login,
+  profileUpdate,
 } from '../controllers/user.js';
 
 router.get('/', getUsers);
@@ -22,5 +23,7 @@ router.get('/:username', getUser);
 router.post('/signup', signup);
 
 router.post('/login', login);
+
+router.put('/profile-update', userOnlyRoute, profileUpdate);
 
 export default router;
