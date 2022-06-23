@@ -11,6 +11,7 @@ import {
   signup,
   login,
   profileUpdate,
+  profileDelete,
 } from '../controllers/user.js';
 
 router.get('/', getUsers);
@@ -25,5 +26,7 @@ router.post('/signup', signup);
 router.post('/login', login);
 
 router.put('/profile-update', userOnlyRoute, profileUpdate);
+
+router.delete('/profile-delete', userOnlyRoute, profileDelete);
 
 export default router;

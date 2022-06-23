@@ -210,3 +210,14 @@ export const profileUpdate = async (req, res) => {
     console.log(err);
   }
 };
+
+export const profileDelete = async (req, res) => {
+  // console.log('Here we are');
+  // console.log(req.user._id);
+  try {
+    let user = await User.findByIdAndDelete(req.user._id);
+    res.json({ message: 'cancellatooo' });
+  } catch (err) {
+    console.log(err);
+  }
+};
