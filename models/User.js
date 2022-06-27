@@ -16,6 +16,9 @@ const userSchema = new mongoose.Schema({
     required: true,
     minlength: 6,
   },
+  secret: {
+    type: String,
+  },
   preferences: {
     type: [Number],
   },

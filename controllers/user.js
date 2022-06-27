@@ -15,10 +15,6 @@ export const getUsers = async (req, res) => {
 export const getUser = async (req, res) => {
   // console.log('DAIIII');
   try {
-    // console.log(req.params);
-    // const user = await User.findOne({ email: req.params.email }).select(
-    //   '-password'
-    // );
     const user = await User.findOne({ username: req.params.username }).select(
       '-password'
     );
@@ -44,18 +40,26 @@ export const currentUser = async (req, res) => {
   }
 };
 
-// export const getUser = async (req, res) => {
-//   try {
-//     const userEmail = req.body;
-//     const user = await User.findOne({ email: userEmail });
-//     res.status(200).json(user);
-//   } catch (err) {
-//     res.status(500).json(err);
-//   }
-// };
-
 export const signup = async (req, res) => {
-  const { username, email, password, preferences } = req.body;
+  const { username, email, password, secret, preferences } = req.body;
+
+  if (!username) {
+    return res.json({
+      error: 'Nome utente non inserito',
+    });
+  }
+
+  if (!password || password.length < 6) {
+    return res.json({
+      error: 'Password di almeno 6 caratteri',
+    });
+  }
+
+  if (!secret) {
+    return res.json({
+      error: 'Segreto non inserito',
+    });
+  }
 
   let existingUser;
   try {
@@ -81,6 +85,7 @@ export const signup = async (req, res) => {
   const createdUser = new User({
     username,
     email,
+    secret,
     password: hashedPassword,
     preferences,
   });
