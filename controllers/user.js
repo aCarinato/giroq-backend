@@ -226,3 +226,45 @@ export const profileDelete = async (req, res) => {
     console.log(err);
   }
 };
+
+export const forgotPassword = async (req, res) => {
+  try {
+    // console.log(req.body);
+    const { email, newPassword, secret } = req.body;
+
+    // validation
+    if (!newPassword || newPassword < 6) {
+      return res.json({
+        error: 'Password > 6 caratteri',
+      });
+    }
+    if (!secret) {
+      return res.json({
+        error: 'Inserire risposta alla tua domanda segreta',
+      });
+    }
+
+    const user = await User.findOne({ email, secret });
+    if (!user) {
+      return res.json({
+        error:
+          'Impossibile reimpostare la password per le credenziali fornite (email e risposta segreta)',
+      });
+    }
+
+    // const hashed = await hashPassword(newPassword);
+
+    let hashedPassword;
+    hashedPassword = await bcrypt.hash(newPassword, 12);
+
+    await User.findByIdAndUpdate(user._id, { password: hashedPassword });
+    return res.json({
+      success:
+        'Congratulazioni, adesso puoi effettuare il login con la nuova password',
+    });
+
+    // res.json({ message: 'ricevuto forte e chiaro' });
+  } catch (err) {
+    console.log(err);
+  }
+};
