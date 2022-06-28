@@ -12,6 +12,7 @@ import {
   login,
   profileUpdate,
   profileDelete,
+  forgotPassword,
 } from '../controllers/user.js';
 
 router.get('/', getUsers);
@@ -28,5 +29,7 @@ router.post('/login', login);
 router.put('/profile-update', userOnlyRoute, profileUpdate);
 
 router.delete('/profile-delete', userOnlyRoute, profileDelete);
+
+router.post('/reset-password', forgotPassword);
 
 export default router;

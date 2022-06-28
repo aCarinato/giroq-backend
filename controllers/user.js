@@ -15,10 +15,6 @@ export const getUsers = async (req, res) => {
 export const getUser = async (req, res) => {
   // console.log('DAIIII');
   try {
-    // console.log(req.params);
-    // const user = await User.findOne({ email: req.params.email }).select(
-    //   '-password'
-    // );
     const user = await User.findOne({ username: req.params.username }).select(
       '-password'
     );
@@ -44,18 +40,26 @@ export const currentUser = async (req, res) => {
   }
 };
 
-// export const getUser = async (req, res) => {
-//   try {
-//     const userEmail = req.body;
-//     const user = await User.findOne({ email: userEmail });
-//     res.status(200).json(user);
-//   } catch (err) {
-//     res.status(500).json(err);
-//   }
-// };
-
 export const signup = async (req, res) => {
-  const { username, email, password, preferences } = req.body;
+  const { username, email, password, secret, preferences } = req.body;
+
+  if (!username) {
+    return res.json({
+      error: 'Nome utente non inserito',
+    });
+  }
+
+  if (!password || password.length < 6) {
+    return res.json({
+      error: 'Password di almeno 6 caratteri',
+    });
+  }
+
+  if (!secret) {
+    return res.json({
+      error: 'Segreto non inserito',
+    });
+  }
 
   let existingUser;
   try {
@@ -81,6 +85,7 @@ export const signup = async (req, res) => {
   const createdUser = new User({
     username,
     email,
+    secret,
     password: hashedPassword,
     preferences,
   });
@@ -217,6 +222,48 @@ export const profileDelete = async (req, res) => {
   try {
     let user = await User.findByIdAndDelete(req.user._id);
     res.json({ message: 'cancellatooo' });
+  } catch (err) {
+    console.log(err);
+  }
+};
+
+export const forgotPassword = async (req, res) => {
+  try {
+    // console.log(req.body);
+    const { email, newPassword, secret } = req.body;
+
+    // validation
+    if (!newPassword || newPassword < 6) {
+      return res.json({
+        error: 'Password > 6 caratteri',
+      });
+    }
+    if (!secret) {
+      return res.json({
+        error: 'Inserire risposta alla tua domanda segreta',
+      });
+    }
+
+    const user = await User.findOne({ email, secret });
+    if (!user) {
+      return res.json({
+        error:
+          'Impossibile reimpostare la password per le credenziali fornite (email e risposta segreta)',
+      });
+    }
+
+    // const hashed = await hashPassword(newPassword);
+
+    let hashedPassword;
+    hashedPassword = await bcrypt.hash(newPassword, 12);
+
+    await User.findByIdAndUpdate(user._id, { password: hashedPassword });
+    return res.json({
+      success:
+        'Congratulazioni, adesso puoi effettuare il login con la nuova password',
+    });
+
+    // res.json({ message: 'ricevuto forte e chiaro' });
   } catch (err) {
     console.log(err);
   }
